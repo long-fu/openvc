@@ -1,0 +1,25 @@
+import cv2
+# 加载视频文件
+video_file = 'sample.mp4'
+cap = cv2.VideoCapture(video_file)
+# 判断视频是否加载成功
+if cap.isOpened():
+    # 获取视频的帧率
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    # 获取视频的总帧数
+    total_frame = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    # 进入循环，播放视频
+    while True:
+        # 读取每一帧
+        ret, frame = cap.read()
+        # 判断是否读取到了视频的末尾
+        if not ret:
+            break
+        # 显示当前帧
+        cv2.imshow('Video', frame)
+        # 按 q 键退出
+        if cv2.waitKey(int(1000 / fps)) & 0xFF == ord('q'):
+            break
+    # 释放资源
+    cap.release()
+    cv2.destroyAllWindows()
